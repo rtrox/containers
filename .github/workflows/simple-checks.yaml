@@ -26,6 +26,8 @@ jobs:
       - uses: reviewdog/action-yamllint@v1
         with:
           yamllint_flags: "-c .github/lint/yamllint.yaml ${{ steps.filter.outputs.yaml_files }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
 
   metadata-validation:
     name: Validate Image Metadata
