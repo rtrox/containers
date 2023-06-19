@@ -13,3 +13,8 @@ def get_latest(channel):
     for tag in data['results']:
         if channel in tag['name']:
             return tag['name']
+
+if __name__ == "__main__":
+    import sys
+    channel = sys.argv[1]
+    print(get_latest(channel))
