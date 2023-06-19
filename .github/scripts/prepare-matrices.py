@@ -105,9 +105,11 @@ def get_image_metadata(subdir, file, forRelease=False, force=False, channels=Non
 
             if isfile(os.path.join(subdir, channel["name"], "Dockerfile")):
                 platformToBuild["dockerfile"] = os.path.join(subdir, channel, "Dockerfile")
+                platformToBuild["context"] = os.path.join(subdir, channel)
                 platformToBuild["goss_config"] = os.path.join(subdir, channel, "goss.yaml")
             else:
                 platformToBuild["dockerfile"] = os.path.join(subdir, "Dockerfile")
+                platformToBuild["context"] = subdir
                 platformToBuild["goss_config"] = os.path.join(subdir, "ci", "goss.yaml")
 
             platformToBuild["goss_args"] = "tail -f /dev/null" if channel["tests"].get("type", "web") == "cli" else ""
