@@ -25,8 +25,6 @@ def get_published_version(image_name):
     )
 
     if r.status_code != 200:
-        print("Error getting published version ({r.status}): {r.text}")
-        exit(1)
         return None
 
     data = json.loads(r.text)
