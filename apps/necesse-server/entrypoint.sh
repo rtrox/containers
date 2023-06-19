@@ -1,5 +1,11 @@
 #!/usr/bin/env sh
 
+# Ensure volume directories still exist
+mkdir -p /data/saves && \
+    mkdir -p /data/logs &&  \
+    mkdir -p /data/cache && \
+    mkdir -p /config
+
 cd "$(dirname "$0")"
 java ${JVMARGS} -jar Server.jar           \
 -nogui                                    \
