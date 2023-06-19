@@ -16,7 +16,7 @@ jobs:
     name: Get Changed Images
     runs-on: ubuntu-latest
     outputs:
-      changes-detected: "${{ steps.filter.outputs.addedOrModified }}"
+      addedOrModified: "${{ steps.filter.outputs.addedOrModified }}"
       addedOrModifiedImages: "${{ steps.filter-containers.outputs.addedOrModifiedImages }}"
     steps:
       - uses: actions/checkout@v3
