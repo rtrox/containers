@@ -65,4 +65,3 @@ RUN mkdir -p /data/saves && \
 WORKDIR /necesse
 
 ENTRYPOINT ["/necesse/entrypoint.sh"]
-

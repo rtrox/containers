@@ -1,18 +1,18 @@
 #Spec: {
-	app:  #AcceptableAppName
-	base: bool
+    app:  #AcceptableAppName
+    base: bool
     semantic_versioning: bool
-	channels: [...#Channels]
+    channels: [...#Channels]
 }
 
 #Channels: {
-	name: #NonEmptyString
-	platforms: [...#AcceptedPlatforms]
-	stable: bool
-	tests: {
-		enabled: bool
-		type?:   =~"^(cli|web)$"
-	}
+    name: #NonEmptyString
+    platforms: [...#AcceptedPlatforms]
+    stable: bool
+    tests: {
+        enabled: bool
+        type?:   =~"^(cli|web)$"
+    }
 }
 
 #AcceptableAppName:           string & !="" & =~"^[a-zA-Z0-9_\-]+$"
