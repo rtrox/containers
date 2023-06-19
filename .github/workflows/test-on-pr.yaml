@@ -1,0 +1,28 @@
+---
+name: Test on PR
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  # Pin to main to prevent accidental injection of malicious code
+  simple-checks:
+    uses: rtrox/containers/.github/workflows/simple-checks.yaml@main
+
+  get-changed-images:
+    uses: rtrox/containers/.github/workflows/get-changed-images.yaml@main
+
+  build-images:
+    needs: [simple-checks, get-changed-images]
+    uses: rtrox/containers/.github/workflows/build-images.yaml@main
+    secrets: inherit
+    with:
+      appsToBuild: "${{ needs.get-changed-images.outputs.addedOrModifiedImages }}"
+      pushImages: false
+      sendNotifications: false

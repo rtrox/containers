@@ -1,0 +1,73 @@
+---
+name: "Simple Checks"
+
+on:
+  workflow_call:
+
+jobs:
+  lint-yaml:
+    name: Lint Yaml Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            yaml:
+              - added|modified: "**.yaml"
+              - added|modified: "**.yml"
+
+      - uses: reviewdog/action-yamllint@v1
+        with:
+          yamllint_flags: "-c .github/lint/yamllint.yaml ${{ steps.filter.outputs.yaml_files }}"
+
+  metadata-validation:
+    name: Validate Image Metadata
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            cue:
+              - added|modified: "apps/**/metadata.yaml"
+              - added|modified: ".github/lint/metadata.rules.cue"
+
+      - name: Setup CUE
+        if: ${{ steps.filter.outputs.cue == 'true' }}
+        uses: cue-lang/setup-cue@0be332bb74c8a2f07821389447ba3163e2da3bfb
+
+      - name: Validate image metadata
+        if: ${{ steps.filter.outputs.cue == 'true' }}
+        shell: bash
+        # Run against all files to ensure they are tested if the cue schema is changed.
+        run: |
+          find ./apps/ -name metadata.json | xargs -I {} cue vet --schema '#Spec' {} ./.github/lint/metadata.rules.cue
+
+  renovate-config-validator:
+    name: Validate Renovate Config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            renovate:
+              - added|modified: ".github/renovate.json5"
+
+      - name: Validate Renovate Config
+        uses: rinchsan/renovate-config-validator@v0.0.12
+        with:
+          pattern: '.github/renovate.json5'

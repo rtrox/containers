@@ -1,0 +1,28 @@
+---
+name: Release on Merge
+
+concurrency:
+  group: container-release
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  simple-checks:
+    uses: ./.github/workflows/simple-checks.yaml
+
+  get-changed-images:
+    needs: [simple-checks]
+    uses: ./.github/workflows/get-changed-images.yaml
+
+  build-images:
+    needs: [simple-checks, get-changed-images]
+    uses: ./.github/workflows/build-images.yaml
+    secrets: inherit
+    with:
+      appsToBuild: "${{ needs.get-changed-images.outputs.addedOrModifiedImages }}"
+      pushImages: true
+      sendNotifications: true

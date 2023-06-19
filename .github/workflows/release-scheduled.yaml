@@ -1,0 +1,26 @@
+---
+name: Scheduled Release
+
+concurrency:
+  group: container-release
+  cancel-in-progress: false
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  simple-checks:
+    name: Simple Checks
+    uses: ./.github/workflows/simple-checks.yaml
+
+  build-images:
+    name: Build Images
+    needs: simple-checks
+    uses: ./.github/workflows/build-images.yaml
+    secrets: inherit
+    with:
+      appsToBuild: "all"
+      pushImages: true
+      sendNotifications: true
