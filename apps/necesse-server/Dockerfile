@@ -54,5 +54,6 @@ RUN chmod +x /necesse/entrypoint.sh
 EXPOSE 14159/udp
 
 WORKDIR /necesse
+VOLUME ["/necesse/saves", "/necesse/config", "/necesse/logs", "/necesse/cache"]
 
 ENTRYPOINT ["/necesse/entrypoint.sh"]
