@@ -70,8 +70,7 @@ jobs:
             fi
           fi
           echo "matrices=${matrices}" >> $GITHUB_OUTPUT
-          echo "${matrices}" | jq .
-
+          echo "${matrices}"
 
   build-platform-images:
     name: Build/Test ${{ matrix.image.name }} (${{ matrix.image.platform }})

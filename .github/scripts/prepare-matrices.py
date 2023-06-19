@@ -148,5 +148,3 @@ if __name__ == "__main__":
                         imagesToBuild["images"].extend(imageToBuild["images"])
                         imagesToBuild["imagePlatforms"].extend(imageToBuild["imagePlatforms"])
     print(json.dumps(imagesToBuild))
-    if len(imagesToBuild["images"]) == 0 or len(imagesToBuild["imagePlatforms"]) == 0:
-        exit(1)
