@@ -25,6 +25,8 @@ def get_published_version(image_name):
     )
 
     if r.status_code != 200:
+        print("Error getting published version ({r.status}): {r.text}")
+        exit(1)
         return None
 
     data = json.loads(r.text)
@@ -75,6 +77,9 @@ def get_image_metadata(subdir, file, forRelease=False, channels=None):
         published = get_published_version(meta["app"])
         if published is not None and published == version:
             continue
+
+        toBuild["published_version"] = published
+        toBuild["version"] = version
 
         # Image Tags
         toBuild["tags"] = ["latest", version]
