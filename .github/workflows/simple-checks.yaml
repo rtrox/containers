@@ -68,6 +68,7 @@ jobs:
               - added|modified: ".github/renovate.json5"
 
       - name: Validate Renovate Config
+        if: ${{ steps.filter.outputs.renovate == 'true' }}
         uses: rinchsan/renovate-config-validator@v0.0.12
         with:
           pattern: '.github/renovate.json5'
