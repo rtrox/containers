@@ -17,7 +17,7 @@ def load_metadata_file(file_path):
 
 def get_published_version(image_name):
     r = requests.get(
-        f"https://api.github.com/users/onedr0p/packages/container/{image_name}/versions",
+        f"https://api.github.com/users/rtrox/packages/container/{image_name}/versions",
         headers={
             "Accept": "application/vnd.github.v3+json",
             "Authorization": "token " + os.environ["GITHUB_TOKEN"]
