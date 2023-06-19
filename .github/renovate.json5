@@ -1,10 +1,6 @@
 {
   extends: [
-    'config:base',
-    'docker:enableMajor',
-    ':disableRateLimiting',
-    'dependencyDashboard',
-    'semanticCommits'
+    'config:base'
   ],
   enabled: true,
   timezone: 'America/Los_Angeles',
