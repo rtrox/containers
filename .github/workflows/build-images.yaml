@@ -1,5 +1,5 @@
 ---
-name: "Action: Image Build"
+name: "Image Build"
 
 on:
   workflow_call:

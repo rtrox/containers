@@ -138,7 +138,7 @@ if __name__ == "__main__":
             if not os.path.exists(os.path.join("./apps", app)):
                 print(f"App \"{app}\" not found")
                 exit(1)
-            imageToBuild = get_image_metadata(os.path.join("./apps", app), "metadata.yaml", forRelease, channels=channels)
+            imageToBuild = get_image_metadata(os.path.join("./apps", app), "metadata.yaml", forRelease, force=force, channels=channels)
             if imageToBuild is not None:
                 imagesToBuild["images"].extend(imageToBuild["images"])
                 imagesToBuild["imagePlatforms"].extend(imageToBuild["imagePlatforms"])
@@ -146,7 +146,7 @@ if __name__ == "__main__":
         for subdir, dirs, files in os.walk("./apps"):
             for file in files:
                 if file == "metadata.yaml":
-                    imageToBuild = get_image_metadata(subdir, file, forRelease)
+                    imageToBuild = get_image_metadata(subdir, file, forRelease, force=force)
                     if imageToBuild is not None:
                         imagesToBuild["images"].extend(imageToBuild["images"])
                         imagesToBuild["imagePlatforms"].extend(imageToBuild["imagePlatforms"])

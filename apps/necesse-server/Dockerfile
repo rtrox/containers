@@ -52,16 +52,6 @@ COPY ./entrypoint.sh /necesse/entrypoint.sh
 RUN chmod +x /necesse/entrypoint.sh
 
 EXPOSE 14159/udp
-VOLUME ["/data", "/config"]
-
-RUN mkdir -p /data/saves && \
-    mkdir -p /data/logs &&  \
-    mkdir -p /data/cache && \
-    ln -s /data/saves /necesse/saves && \
-    ln -s /data/logs /necesse/logs && \
-    ln -s /data/cache /necesse/cache && \
-    ln -s /config /necesse/cfg
 
 WORKDIR /necesse
-
 ENTRYPOINT ["/necesse/entrypoint.sh"]
