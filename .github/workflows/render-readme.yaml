@@ -44,7 +44,7 @@ jobs:
 
       - name: Commit Changes
         run: |
-          git config --global user.name "rtrox"
+          git config --global user.name "Automated Update"
           git config --global user.email "<rtrox@noreply.github.com>"
           git add ./README.md
           git commit -m "Render README.md" || echo "No changes to commit"

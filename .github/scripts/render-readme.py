@@ -13,6 +13,7 @@ def load_metadata_file(file_path):
     with open(file_path, "r") as f:
         return yaml.safe_load(f)
 
+# TODO: remove hard-coded repo owner
 def get_latest_image(name):
     r = requests.get(
         f"https://api.github.com/users/rtrox/packages/container/{name}/versions",
@@ -53,7 +54,7 @@ if __name__ == "__main__":
                 }
                 gh_data = get_latest_image(name)
                 if gh_data is not None:
-                    image["html_url"] = gh_data["html_url"]
+                    image["html_url"] = f"https://github.com/rtrox/containers/pkgs/container/{name}"
                     image["tags"] = sorted(gh_data["metadata"]["container"]["tags"])
                 images.append(image)
     print(images)
