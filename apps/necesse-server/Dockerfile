@@ -52,6 +52,6 @@ COPY ./entrypoint.sh /necesse/entrypoint.sh
 RUN chmod +x /necesse/entrypoint.sh
 
 EXPOSE 14159/udp
-
 WORKDIR /necesse
+
 ENTRYPOINT ["/necesse/entrypoint.sh"]
