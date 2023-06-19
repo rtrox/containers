@@ -76,8 +76,8 @@ def get_image_metadata(subdir, file, forRelease=False, force=False, channels=Non
             published = get_published_version(meta["app"])
             if published is not None and published == version:
                 continue
+            toBuild["published_version"] = published
 
-        toBuild["published_version"] = published
         toBuild["version"] = version
 
         # Image Tags
