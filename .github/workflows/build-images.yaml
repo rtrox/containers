@@ -20,6 +20,11 @@ on:
         required: false
         default: false
         type: boolean
+      force:
+        required: false
+        default: true
+        type: boolean
+        description: "Rebuild images regardless of whether version has changed"
     secrets:
       BOT_APP_ID:
         description: "The ID of the GitHub App"
@@ -61,12 +66,12 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           if [[ -z "${{ inputs.appsToBuild }}" ]]; then
-              matrices=$(python ./.github/scripts/prepare-matrices.py "all" "${{ inputs.pushImages }}")
+              matrices=$(python ./.github/scripts/prepare-matrices.py "all" "${{ inputs.pushImages }}" "${{ inputs.force }}")
           else
             if [[ -z "${{ inputs.channelsToBuild }}" ]]; then
-              matrices=$(python ./.github/scripts/prepare-matrices.py "${{ inputs.appsToBuild }}" "${{ inputs.pushImages }}")
+              matrices=$(python ./.github/scripts/prepare-matrices.py "${{ inputs.appsToBuild }}" "${{ inputs.pushImages }}" "${{ inputs.force }}")
             else
-              matrices=$(python ./.github/scripts/prepare-matrices.py "${{ inputs.appsToBuild }}" "${{ inputs.pushImages }}" "${{ inputs.channelsToBuild }}")
+              matrices=$(python ./.github/scripts/prepare-matrices.py "${{ inputs.appsToBuild }}" "${{ inputs.pushImages }}" "${{ inputs.force }}" "${{ inputs.channelsToBuild }}")
             fi
           fi
           echo "matrices=${matrices}" >> $GITHUB_OUTPUT

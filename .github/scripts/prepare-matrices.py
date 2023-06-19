@@ -35,7 +35,7 @@ def get_published_version(image_name):
             # Assume the longest string is the complete version number
             return max(tags, key=len)
 
-def get_image_metadata(subdir, file, forRelease=False, channels=None):
+def get_image_metadata(subdir, file, forRelease=False, force=False, channels=None):
     imagesToBuild = {
         "images": [],
         "imagePlatforms": []
@@ -72,9 +72,10 @@ def get_image_metadata(subdir, file, forRelease=False, channels=None):
             toBuild["name"] = "-".join([meta["app"], channel["name"]])
 
         # Skip if latest version already published
-        published = get_published_version(meta["app"])
-        if published is not None and published == version:
-            continue
+        if not force:
+            published = get_published_version(meta["app"])
+            if published is not None and published == version:
+                continue
 
         toBuild["published_version"] = published
         toBuild["version"] = version
@@ -119,7 +120,7 @@ def get_image_metadata(subdir, file, forRelease=False, channels=None):
 if __name__ == "__main__":
     apps = sys.argv[1]
     forRelease = sys.argv[2] == "true"
-
+    force = sys.argv[3] == "true"
     imagesToBuild = {
         "images": [],
         "imagePlatforms": []
@@ -128,8 +129,8 @@ if __name__ == "__main__":
     if apps != "all":
         channels=None
         apps = apps.split(",")
-        if len(sys.argv) == 4:
-            channels = sys.argv[3].split(",")
+        if len(sys.argv) == 5:
+            channels = sys.argv[4].split(",")
 
         for app in apps:
             if not os.path.exists(os.path.join("./apps", app)):

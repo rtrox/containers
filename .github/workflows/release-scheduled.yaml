@@ -22,5 +22,6 @@ jobs:
     secrets: inherit
     with:
       appsToBuild: "all"
+      force: false
       pushImages: true
       sendNotifications: true
