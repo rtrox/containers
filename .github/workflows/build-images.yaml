@@ -76,7 +76,7 @@ jobs:
     name: Build/Test ${{ matrix.image.name }} (${{ matrix.image.platform }})
     needs: prepare
     runs-on: ubuntu-latest
-    if: ${{ needs.prepare.outputs.matrices != '{}' && needs.prepare.outputs.matrices != '' }}
+    if: ${{ toJSON(fromJSON(needs.prepare.outputs.matrices).imagePlatforms) != '[]' && toJSON(fromJSON(needs.prepare.outputs.matrices).imagePlatforms) != '' }}
     strategy:
       fail-fast: false
       matrix:
@@ -195,7 +195,7 @@ jobs:
       - build-platform-images
     # Always run merge, as the prior matrix is all or nothing. We test for prior step failure
     # in the "Test Failed Bit" step. This ensures if one app fails, others can still complete.
-    if: ${{ always() && inputs.pushImages }}
+    if: ${{ always() && inputs.pushImages && toJSON(fromJSON(needs.prepare.outputs.matrices).images) != '[]' && toJSON(fromJSON(needs.prepare.outputs.matrices).images) != '' }}
     strategy:
       matrix:
         image: ["${{ fromJSON(needs.prepare.outputs.matrices).images }}"]
