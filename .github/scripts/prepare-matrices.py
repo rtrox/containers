@@ -77,7 +77,7 @@ def get_image_metadata(subdir, file, forRelease=False, channels=None):
             continue
 
         # Image Tags
-        toBuild["tags"] = [version]
+        toBuild["tags"] = ["latest", version]
         if meta.get("semantic_versioning", False):
             parts = version.split(".")[:-1]
             while len(parts) > 0:
