@@ -25,3 +25,9 @@ jobs:
       force: false
       pushImages: true
       sendNotifications: true
+
+  render-readme:
+    name: Render Readme
+    needs: build-images
+    uses: ./.github/workflows/render-readme.yaml
+    secrets: inherit
