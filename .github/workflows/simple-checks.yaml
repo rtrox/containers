@@ -23,11 +23,16 @@ jobs:
               - added|modified: "**.yaml"
               - added|modified: "**.yml"
 
-      - uses: reviewdog/action-yamllint@v1
+      - name: 'Yamllint'
+        if: ${{ steps.filter.outputs.yaml == 'true' }}
+        uses: karancode/yamllint-github-action@master
         with:
-          yamllint_flags: "-c .github/lint/yamllint.yaml ${{ steps.filter.outputs.yaml_files }}"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
+          yamllint_file_or_dir: '${{ steps.filter.outputs.yaml_files }}'
+          yamllint_strict: false
+          yamllint_comment: true
+          yamllint_config_filepath: .github/lint/yamllint.yaml
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   metadata-validation:
     name: Validate Image Metadata
