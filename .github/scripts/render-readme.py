@@ -34,10 +34,10 @@ def get_latest_image(name):
     return None
 
 if __name__ == "__main__":
-    images = []
+    base_images = []
+    app_images = []
     for subdir, dirs, files in os.walk("./apps"):
         for file in files:
-            print(file)
             if file != "metadata.yaml":
                 continue
             meta = load_metadata_file(os.path.join(subdir, file))
@@ -56,9 +56,11 @@ if __name__ == "__main__":
                 if gh_data is not None:
                     image["html_url"] = f"https://github.com/rtrox/containers/pkgs/container/{name}"
                     image["tags"] = sorted(gh_data["metadata"]["container"]["tags"])
-                images.append(image)
-    print(images)
+                if meta["base"]:
+                    base_images.append(image)
+                else:
+                    app_images.append(image)
 
     template = env.get_template("README.md.j2")
     with open("./README.md", "w") as f:
-        f.write(template.render(images=images))
+        f.write(template.render(base_images=base_images, app_images=app_images))

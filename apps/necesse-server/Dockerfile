@@ -64,4 +64,4 @@ EXPOSE 14159/udp
 
 WORKDIR /necesse
 
-ENTRYPOINT ["/necesse/entrypoint.sh"]
+CMD ["/necesse/entrypoint.sh"]
