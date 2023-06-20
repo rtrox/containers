@@ -63,7 +63,7 @@ jobs:
       - name: Prepare Matrices
         id: prepare-matrices
         env:
-          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+          TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           if [[ -z "${{ inputs.appsToBuild }}" ]]; then
               matrices=$(python ./.github/scripts/prepare-matrices.py "all" "${{ inputs.pushImages }}" "${{ inputs.force }}")

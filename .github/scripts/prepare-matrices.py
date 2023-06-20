@@ -20,7 +20,7 @@ def get_published_version(image_name):
         f"https://api.github.com/users/rtrox/packages/container/{image_name}/versions",
         headers={
             "Accept": "application/vnd.github.v3+json",
-            "Authorization": "token " + os.environ["GITHUB_TOKEN"]
+            "Authorization": "token " + os.environ["TOKEN"]
         },
     )
 
