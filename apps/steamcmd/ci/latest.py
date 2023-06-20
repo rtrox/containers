@@ -10,7 +10,7 @@ def get_latest(_):
     data = json.loads(r.text)
     for pkg in data['entries']:
         if pkg['distro_series_link'] == "https://api.launchpad.net/1.0/ubuntu/jammy":
-            return pkg['source_package_version']
+            return pkg['source_package_version'].replace("~", "-")
 
 if __name__ == "__main__":
     import sys

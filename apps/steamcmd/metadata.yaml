@@ -1,5 +1,5 @@
 ---
-app: ubuntu
+app: steamcmd
 base: true
 channels:
   - name: "stable"
