@@ -36,8 +36,18 @@ This repo contains a collection of containers which are optimized for use in kub
 
 Each Image will be built with the standard `latest` rolling tag, along with tags specific to it's version. For Semantically Versioned containers (e.g. `v1.2.3`), `major`, `major.minor`, and `major.minor.patch` tags will be generated, for example, ![1](https://img.shields.io/badge/1-blue?style=flat-square) ![1.2](https://img.shields.io/badge/1.2-blue?style=flat-square) and ![1.2.3](https://img.shields.io/badge/1.2.3-blue?style=flat-square). Available Images Below.
 
+### Application Images
+Application Images are all built from the customer base images below, and will leverage a `/data` and a `/config` volume where these are necessary, and follow the guidelines above for use in Kubernetes.
+
+Container | Channel | Image | Latest Tags
+--- | --- | --- | ---
+[necesse-server](https://github.com/rtrox/containers/pkgs/container/necesse-server) | stable | ghcr.io/rtrox/necesse-server |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.21](https://img.shields.io/badge/0.21-blue?style=flat-square) ![0.21.29](https://img.shields.io/badge/0.21.29-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
+
+
+### Base Images
+All Base Images are configured with a non-root user (`rtrox:rtrox`), and exposed `/data` and `/config` volumes, and use `tini` as an entrypoint to ensure proper signal handling.
+
 Container | Channel | Image | Latest Tags
 --- | --- | --- | ---
 [ubuntu](https://github.com/rtrox/containers/pkgs/container/ubuntu) | jammy | ghcr.io/rtrox/ubuntu |![jammy-20230605](https://img.shields.io/badge/jammy--20230605-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
-[necesse-server](https://github.com/rtrox/containers/pkgs/container/necesse-server) | stable | ghcr.io/rtrox/necesse-server |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.21](https://img.shields.io/badge/0.21-blue?style=flat-square) ![0.21.29](https://img.shields.io/badge/0.21.29-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 [alpine](https://github.com/rtrox/containers/pkgs/container/alpine) | 3.18 | ghcr.io/rtrox/alpine |![3](https://img.shields.io/badge/3-blue?style=flat-square) ![3.18](https://img.shields.io/badge/3.18-blue?style=flat-square) ![3.18.2](https://img.shields.io/badge/3.18.2-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
