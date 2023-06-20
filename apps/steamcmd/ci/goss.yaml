@@ -2,8 +2,6 @@
 process:
   tini:
     running: true
-  steamcmd:
-    running: true
 
 file:
   /usr/bin/steamcmd:
