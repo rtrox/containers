@@ -28,4 +28,4 @@ RUN mkdir /data && chown rtrox:rtrox /data
 RUN mkdir /config && chown rtrox:rtrox /config
 
 VOLUME ["/data", "/config"]
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
