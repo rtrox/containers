@@ -20,6 +20,8 @@ jobs:
     needs: simple-checks
     uses: ./.github/workflows/build-images.yaml
     secrets: inherit
+    permissions:
+      packages: write
     with:
       appsToBuild: "all"
       force: false
