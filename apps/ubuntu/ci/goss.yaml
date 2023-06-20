@@ -1,0 +1,17 @@
+---
+group:
+  rtrox:
+    exists: true
+    gid: 314
+
+user:
+  rtrox:
+    exists: true
+    uid: 314
+    gid: 314
+    groups:
+      - rtrox
+
+process:
+  tini:
+    running: true
