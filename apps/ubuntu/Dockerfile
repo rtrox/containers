@@ -14,9 +14,6 @@ LABEL org.label-schema.vcs-ref=$REVISION
 
 USER root
 
-
-RUN adduser rtrox --uid 314 --group --disabled-password --gecos "" --no-create-home
-
 RUN set -eux \
     && echo 'APT::Install-Recommends "false";' >/etc/apt/apt.conf.d/00recommends \
     && echo 'APT::Install-Suggests "false";' >>/etc/apt/apt.conf.d/00recommends \
@@ -24,6 +21,8 @@ RUN set -eux \
     && echo 'APT::Get::Install-Suggests "false";' >>/etc/apt/apt.conf.d/00recommends
 
 RUN apt-get update && apt-get install -y --no-install-recommends bash tini && rm -rf /var/lib/apt/lists/*
+
+RUN adduser rtrox --uid 314 --group --system --disabled-password --gecos "" --no-create-home
 
 RUN mkdir /data && chown rtrox:rtrox /data
 RUN mkdir /config && chown rtrox:rtrox /config
