@@ -1,0 +1,19 @@
+---
+process:
+  tini:
+    running: true
+  steamcmd:
+    running: true
+
+file:
+  /usr/bin/steamcmd:
+    exists: true
+
+command:
+  steamcmd:
+    exit-status: 0
+    exec: "steamcmd +quit"
+    stdout:
+      - "OK"
+    timeout: 60000
+    skip: false
