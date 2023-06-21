@@ -92,7 +92,34 @@ jobs:
           cat << EOF
           ${{ toJSON(matrix.image)}}
           EOF
-
+      - name: Validate Matrix Input
+        run: |
+          if [[ -z "${{ matrix.image.name }}" ]]; then
+              echo "image.name is empty"
+              exit 1
+          fi
+          if [[ -z "${{ matrix.image.version }}" ]]; then
+              echo "image.version is empty"
+              exit 1
+          fi
+          if [[ -z "${{ matrix.image.context }}" ]]; then
+              echo "image.context is empty"
+              exit 1
+          fi
+          if [[ -z "${{ matrix.image.dockerfile }}" ]]; then
+              echo "image.dockerfile is empty"
+              exit 1
+          fi
+          if [[ -z "${{ matrix.image.platform }}" ]]; then
+              echo "image.platform is empty"
+              exit 1
+          fi
+          if [[ -z "${{ matrix.image.tests_enabled }}" ]]; then
+              echo "image.tests_enabled is empty"
+              exit 1
+          fi
+          echo "${{ matrix.image.name }}" | grep -E "[a-zA-Z0-9_\.\-]+" || "Image Name is invalid"
+          echo "${{ matrix.image.version }}" | grep -E "[a-zA-Z0-9_\.\-]+" || "Image Version is invalid"
       - name: Checkout
         uses: actions/checkout@v3
         with:

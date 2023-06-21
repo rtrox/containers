@@ -1,3 +1,6 @@
+ARG VERSION
+ARG REVISION
+
 FROM ghcr.io/rtrox/ubuntu:jammy-20230605 AS builder
 
 WORKDIR /tmp
@@ -27,6 +30,15 @@ RUN tar -xvzf steamcmd.tar.gz && \
 
 # -- FINAL IMAGE -- #
 FROM ghcr.io/rtrox/alpine:3.18.2 AS final
+
+LABEL maintainer="rtrox <rtrox@noreply.github.com"
+LABEL org.label-schema.name="rtrox/steamcmd"
+LABEL org.label-schema.description="Base SteamCMD Image customed for rtrox images."
+LABEL org.label-schema.vendor="rtrox"
+LABEL org.label-schema.url="https://github.com/rtrox/containers"
+LABEL org.label-schema.version=$VERSION
+LABEL org.label-schema.vcs-url="https://github.com/rtrox/containers"
+LABEL org.label-schema.vcs-ref=$REVISION
 
 COPY --from=builder /tmp/steamcmd.sh /usr/lib/games/steam/
 COPY --from=builder /tmp/linux32/steamcmd /usr/lib/games/steam/
