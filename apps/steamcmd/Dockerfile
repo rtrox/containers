@@ -12,41 +12,45 @@ LABEL org.label-schema.version=$VERSION
 LABEL org.label-schema.vcs-url="https://github.com/rtrox/containers"
 LABEL org.label-schema.vcs-ref=$REVISION
 
+FROM base as builder
+
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ARG STEAMCMD_DIR="/steamcmd"
-ENV STEAMCMD_DIR=${STEAMCMD_DIR}
+RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
+    && echo steam steam/license note '' | debconf-set-selections
 
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -y && \
+RUN dpkg --add-architecture i386 && \
+    apt-get update -y && \
     apt-get install -y --no-install-recommends --no-install-suggests \
         lib32stdc++6 \
         lib32gcc-s1 \
         ca-certificates \
         locales \
-        bash
+        bash \
+        steamcmd
 
-FROM base as builder
+RUN apt-get install -y \
+    curl \
+    tar
 
-USER rtrox
-
-RUN apt-get install -y curl tar
-
-RUN mkdir -p ${STEAMCMD_DIR}
-RUN curl -fsSL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar xvzf - -C "${STEAMCMD_DIR}"
+WORKDIR /tmp
+RUN curl -fsSL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar xvzf -
 
 FROM base as final
+
+COPY --from=builder /tmp/ /usr/lib/games/steam/
+COPY --from=builder /usr/games/steamcmd /usr/bin/steamcmd
+
+ARG STEAMCMD_DIR="/steamcmd"
+ENV STEAMCMD_DIR=${STEAMCMD_DIR}
+
+RUN ln -s /usr/lib/games/steam/linux32/steamcmd /usr/lib/games/steam/steamcmd
 
 RUN apt-get remove --purge --auto-remove -y && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder ${STEAMCDM_DIR} ${STEAMCMD_DIR}
-RUN mkdir -p /home/rtrox/.steam/sdk32/ && \
-    ln -s ${STEAMCMD_DIR}/linux32/steamclient.so /home/rtrox/.steam/sdk32/steamclient.so && \
-    ln -s ${STEAMCMD_DIR}/linux64/steamclient.so /usr/lib/x86_64-linux-gnu/steamclient.so
-
 USER rtrox
 
-RUN steamcmd +quit
+RUN bash -x steamcmd +quit
 
 CMD ["steamcmd", "+help", "+quit"]

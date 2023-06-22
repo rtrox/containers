@@ -1,7 +1,10 @@
 ARG VERSION=""
 ARG REVISION=""
+ARG DEBIAN_FRONTEND=noninteractive
 
 FROM ubuntu:${VERSION}
+
+ENV DEBIAN_FRONTEND=${DEBIAN_FRONTEND}
 
 LABEL maintainer="rtrox <rtrox@noreply.github.com"
 LABEL org.label-schema.name="rtrox/ubuntu"
@@ -20,10 +23,12 @@ RUN set -eux \
     && echo 'APT::Get::Install-Recommends "false";' >>/etc/apt/apt.conf.d/00recommends \
     && echo 'APT::Get::Install-Suggests "false";' >>/etc/apt/apt.conf.d/00recommends
 
+
+RUN apt-get update && apt-get install -y --no-install-recommends locales bash tini && rm -rf /var/lib/apt/lists/*
+
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales
 
-RUN apt-get update && apt-get install -y --no-install-recommends bash tini && rm -rf /var/lib/apt/lists/*
 
 RUN adduser rtrox --uid 314 --group --system --disabled-password --gecos ""
 
