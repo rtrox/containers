@@ -1,4 +1,4 @@
 requests
 pyyaml
 jinja2
-steam
+steam[client]
