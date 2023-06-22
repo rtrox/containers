@@ -1,0 +1,18 @@
+---
+file:
+  /install.sh:
+    exists: true
+  /prepare_update.sh:
+    exists: true
+  /install.txt:
+    exists: true
+  /configure_server.sh:
+    exists: true
+  /entrypoint.sh:
+    exists: true
+  /starbound_server.config.template:
+    exists: true
+
+process:
+  tini:
+    running: true

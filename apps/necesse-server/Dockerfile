@@ -5,7 +5,7 @@ FROM ghcr.io/rtrox/alpine:3.18 as base
 
 LABEL maintainer="rtrox <rtrox@noreply.github.com>"
 LABEL org.label-schema.name="necesse-server"
-LABEL org.label-schema.description="Dockerized Necessse Server optimized for Kubernetes."
+LABEL org.label-schema.description="Containerized Necessse Server optimized for Kubernetes."
 LABEL org.label-schema.vendor="rtrox <rtrox@noreply.github.com>"
 LABEL org.label-schema.url="https://github.com/rtrox/containers"
 LABEL org.label-schema.version=$VERSION
