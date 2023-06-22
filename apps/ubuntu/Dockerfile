@@ -20,9 +20,12 @@ RUN set -eux \
     && echo 'APT::Get::Install-Recommends "false";' >>/etc/apt/apt.conf.d/00recommends \
     && echo 'APT::Get::Install-Suggests "false";' >>/etc/apt/apt.conf.d/00recommends
 
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales
+
 RUN apt-get update && apt-get install -y --no-install-recommends bash tini && rm -rf /var/lib/apt/lists/*
 
-RUN adduser rtrox --uid 314 --group --system --disabled-password --gecos "" --no-create-home
+RUN adduser rtrox --uid 314 --group --system --disabled-password --gecos ""
 
 RUN mkdir /data && chown rtrox:rtrox /data
 RUN mkdir /config && chown rtrox:rtrox /config
