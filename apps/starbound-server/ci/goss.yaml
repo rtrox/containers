@@ -16,5 +16,3 @@ file:
 process:
   tini:
     running: true
-  entrypoint.sh:
-    running: true
