@@ -42,6 +42,7 @@ Application Images are all built from the customer base images below, and will l
 Container | Channel | Image | Latest Tags
 --- | --- | --- | ---
 [necesse-server](https://github.com/rtrox/containers/pkgs/container/necesse-server) | stable | ghcr.io/rtrox/necesse-server |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.21](https://img.shields.io/badge/0.21-blue?style=flat-square) ![0.21.29](https://img.shields.io/badge/0.21.29-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
+[starbound-server](https://github.com/rtrox/containers/pkgs/container/starbound-server) | public | ghcr.io/rtrox/starbound-server |![4369387-1573210671](https://img.shields.io/badge/4369387--1573210671-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 
 
 ### Base Images
