@@ -51,6 +51,6 @@ RUN apt-get remove --purge --auto-remove -y && \
 
 USER rtrox
 
-RUN bash -x steamcmd +quit
+RUN steamcmd +quit
 
 CMD ["steamcmd", "+help", "+quit"]
