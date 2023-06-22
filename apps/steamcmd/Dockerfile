@@ -19,38 +19,38 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
     && echo steam steam/license note '' | debconf-set-selections
 
-RUN dpkg --add-architecture i386 && \
-    apt-get update -y && \
-    apt-get install -y --no-install-recommends --no-install-suggests \
+ENV USER rtrox
+ENV HOMEDIR "/home/${USER}"
+ENV STEAMCMD_DIR "${HOMEDIR}/steamcmd"
+
+RUN apt-get update -y && \
+    apt-get install -y \
         lib32stdc++6 \
         lib32gcc-s1 \
         ca-certificates \
-        locales \
-        bash \
-        steamcmd
+        curl
 
-RUN apt-get install -y \
-    curl \
-    tar
+USER $USER
 
-WORKDIR /tmp
-RUN curl -fsSL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar xvzf -
+RUN mkdir -p ${STEAMCMD_DIR} && \
+    curl -fsSL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar xvzf - -C "${STEAMCMD_DIR}" && \
+    ${STEAMCMD_DIR}/steamcmd.sh +quit
 
-FROM base as final
+RUN mkdir -p "${HOMEDIR}/.steam/sdk32" && \
+    ln -s "${STEAMCMD_DIR}/linux32/steamclient.so" "${HOMEDIR}/.steam/sdk32/steamclient.so" && \
+    ln -s "${STEAMCMD_DIR}/linux32/steamcmd" "${STEAMCMD_DIR}/linux32/steam" && \
+    ln -s "${STEAMCMD_DIR}/steamcmd.sh" "${STEAMCMD_DIR}/steam.sh"
 
-COPY --from=builder /tmp/ /usr/lib/games/steam/
-COPY --from=builder /usr/games/steamcmd /usr/bin/steamcmd
-
-ARG STEAMCMD_DIR="/steamcmd"
-ENV STEAMCMD_DIR=${STEAMCMD_DIR}
-
-RUN ln -s /usr/lib/games/steam/linux32/steamcmd /usr/lib/games/steam/steamcmd
+USER root
+# Symlink steamclient.so; So misconfigured dedicated servers can find it
+RUN ln -s "${STEAMCMD_DIR}/linux64/steamclient.so" "/usr/lib/x86_64-linux-gnu/steamclient.so"
+COPY ./steamcmd /usr/bin/steamcmd
+RUN chmod +x /usr/bin/steamcmd
 
 RUN apt-get remove --purge --auto-remove -y && \
     rm -rf /var/lib/apt/lists/*
 
-USER rtrox
-
+USER $USER
 RUN steamcmd +quit
 
 CMD ["steamcmd", "+help", "+quit"]

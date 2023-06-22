@@ -1,0 +1,7 @@
+#!/bin/bash
+
+STEAMCMD=/home/rtrox/steamcmd/steamcmd.sh
+
+cd $(dirname $STEAMCMD)
+
+$STEAMCMD $@
