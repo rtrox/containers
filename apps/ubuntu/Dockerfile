@@ -30,7 +30,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales
 
 
-RUN adduser rtrox --uid 314 --group --system --disabled-password --gecos ""
+RUN adduser rtrox --uid 314 --group --system --disabled-password --gecos "" --home /home/rtrox
 
 RUN mkdir /data && chown rtrox:rtrox /data
 RUN mkdir /config && chown rtrox:rtrox /config
