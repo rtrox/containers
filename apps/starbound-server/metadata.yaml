@@ -1,0 +1,12 @@
+---
+app: starbound-server
+base: false
+semantic_versioning: true
+channels:
+  - name: public
+    platforms:
+      - linux/amd64
+    stable: true
+    tests:
+      enabled: true
+      type: web
