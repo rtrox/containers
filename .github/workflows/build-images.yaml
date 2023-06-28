@@ -200,17 +200,10 @@ jobs:
         run: |
           mkdir -p /tmp/${{ matrix.image.name }}/digests
           digest="${{ steps.build.outputs.digest }}"
-          touch "/tmp/${{ matrix.image.name }}/digests/${digest#sha256:}"
-
-      - name: Set Failed Bit
-        id: failed-bit
-        if: ${{ always() && steps.dgoss.outcome == 'failure' || steps.build.outcome != 'success' }}
-        run: |
-          mkdir -p /tmp/${{ matrix.image.name }}
-          touch "/tmp/${{ matrix.image.name }}/failed"
+          echo "${{ matrix.image.name }}" > "/tmp/${{ matrix.image.name }}/digests/${digest#sha256:}"
 
       - name: Upload Digest
-        if: ${{ inputs.pushImages || (always() && steps.failed-bit.outcome == 'success') }}
+        if: ${{ inputs.pushImages}}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.image.name }}
@@ -238,10 +231,20 @@ jobs:
           name: ${{ matrix.image.name }}
           path: /tmp/${{ matrix.image.name }}
 
-      - name: Test Failed Bit
-        id: failure-test
-        run:
-          test -f "/tmp/${{ matrix.image.name }}/failed" && exit 1 || exit 0
+      - name: Ensure all platforms were built
+        id: ensure-platforms
+        run: |
+          EXPECTED_COUNT=$(cat << EOF | jq ". | length"
+          ${{ toJSON(matrix.image.platforms) }}
+          EOF
+          )
+          ACTUAL_COUNT=$(ls -1 /tmp/${{ matrix.image.name }}/digests | wc -l)
+          if [[ $EXPECTED_COUNT != $ACTUAL_COUNT ]]; then
+              echo "Expected $EXPECTED_COUNT platforms, but only found $ACTUAL_COUNT"
+              echo "Expected: ${{ toJSON(matrix.image.platforms) }}"
+              echo "Actual: $(cat /tmp/${{ matrix.image.name }}/digests/*)"
+              exit 1
+          fi
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -268,16 +271,21 @@ jobs:
           docker buildx imagetools create $(jq -cr '. | map("-t ghcr.io/${{ github.repository_owner }}/${{matrix.image.name}}:" + .) | join(" ")'  <<< "$TAGS") \
               $(printf 'ghcr.io/${{ github.repository_owner }}/${{ matrix.image.name }}@sha256:%s ' *)
 
+      - name: Inspect image
+        id: inspect
+        run: |
+          docker buildx imagetools inspect ghcr.io/${{ github.repository_owner }}/${{ matrix.image.name }}:${{ matrix.image.tags[0] }}
+
       - name: Build successful
         id: build-success
-        if: ${{ always() && steps.merge.outcome == 'success' && steps.failure-test.outcome == 'success' }}
+        if: ${{ always() && steps.merge.outcome == 'success' && steps.inspect.outcome == 'success' }}
         run: |-
           echo "message=🎉 ${{ matrix.image.name }} (${{ matrix.image.tags[0] }})" >> $GITHUB_OUTPUT
           echo "color=0x00FF00" >> $GITHUB_OUTPUT
 
       - name: Build failed
         id: build-failed
-        if: ${{ always() && (steps.merge.outcome == 'failure' || steps.failure-test.outcome == 'failure') }}
+        if: ${{ always() && (steps.merge.outcome == 'failure' || steps.inspect.outcome == 'failure') }}
         run: |-
           echo "message=💥 ${{ matrix.image.name }} (${{ matrix.image.tags[0] }})" >> $GITHUB_OUTPUT
           echo "color=0xFF0000" >> $GITHUB_OUTPUT

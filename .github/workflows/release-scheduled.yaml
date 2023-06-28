@@ -7,6 +7,17 @@ concurrency:
 
 on:
   workflow_dispatch:
+    inputs:
+      appsToBuild:
+        description: "Which apps to release"
+        required: false
+        type: string
+        default: "all"
+      force:
+        description: "Rebuild images regardless of whether version has changed"
+        type: boolean
+        default: false
+        required: true
   schedule:
     - cron: "0 * * * *"
 
@@ -23,8 +34,8 @@ jobs:
     permissions:
       packages: write
     with:
-      appsToBuild: "all"
-      force: false
+      appsToBuild: ${{ inputs.appsToBuild }}
+      force: ${{ inputs.force == true }}
       pushImages: true
       sendNotifications: true
 
