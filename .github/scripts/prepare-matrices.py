@@ -88,12 +88,14 @@ def get_image_metadata(subdir, file, forRelease=False, force=False, channels=Non
                 toBuild["tags"].append(".".join(parts))
                 parts = parts[:-1]
 
-        imagesToBuild["images"].append(toBuild)
-
         # Platform Metadata
         for platform in channel["platforms"]:
+
             if platform not in TESTABLE_PLATFORMS and not forRelease:
                 continue
+
+            toBuild.setdefault("platforms", []).append(platform)
+
             platformToBuild = {}
             platformToBuild["name"] = toBuild["name"]
             platformToBuild["platform"] = platform
@@ -117,6 +119,7 @@ def get_image_metadata(subdir, file, forRelease=False, force=False, channels=Non
             platformToBuild["tests_enabled"] = channel["tests"]["enabled"] and platform in TESTABLE_PLATFORMS
 
             imagesToBuild["imagePlatforms"].append(platformToBuild)
+        imagesToBuild["images"].append(toBuild)
     return imagesToBuild
 
 if __name__ == "__main__":
