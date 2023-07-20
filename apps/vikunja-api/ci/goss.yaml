@@ -1,0 +1,8 @@
+---
+process:
+  tini:
+    running: true
+
+http:
+  http://localhost:3456/health:
+    status: 200
