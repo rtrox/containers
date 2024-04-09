@@ -42,7 +42,7 @@ Application Images are all built from the customer base images below, and will l
 Container | Channel | Image | Latest Tags
 --- | --- | --- | ---
 [necesse-server](https://github.com/rtrox/containers/pkgs/container/necesse-server) | stable | ghcr.io/rtrox/necesse-server |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.24](https://img.shields.io/badge/0.24-blue?style=flat-square) ![0.24.0](https://img.shields.io/badge/0.24.0-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
-[starbound-server]() | public | ghcr.io/rtrox/starbound-server |
+[starbound-server](https://github.com/rtrox/containers/pkgs/container/starbound-server) | public | ghcr.io/rtrox/starbound-server |![4369387-1573210671](https://img.shields.io/badge/4369387--1573210671-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 [vikunja-api](https://github.com/rtrox/containers/pkgs/container/vikunja-api) | stable | ghcr.io/rtrox/vikunja-api |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.22](https://img.shields.io/badge/0.22-blue?style=flat-square) ![0.22.1](https://img.shields.io/badge/0.22.1-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 [vikunja-frontend](https://github.com/rtrox/containers/pkgs/container/vikunja-frontend) | stable | ghcr.io/rtrox/vikunja-frontend |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.22](https://img.shields.io/badge/0.22-blue?style=flat-square) ![0.22.1](https://img.shields.io/badge/0.22.1-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 
