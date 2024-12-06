@@ -16,9 +16,10 @@ LABEL org.label-schema.vcs-ref=$REVISION
 
 USER root
 
+COPY files/entrypoint.sh /entrypoint.sh
 RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates && rm -rf /var/lib/apt/lists/*
 RUN curl --silent --show-error --fail --output "/usr/local/bin/pdsadmin" \
     https://raw.githubusercontent.com/bluesky-social/pds/refs/tags/${VERSION}/pdsadmin.sh
 RUN chmod +x /usr/local/bin/pdsadmin
 
-CMD ["/usr/local/bin/pdsadmin"]
+CMD ["/entrypoint.sh"]

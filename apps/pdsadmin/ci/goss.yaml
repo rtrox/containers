@@ -2,3 +2,5 @@
 file:
   /usr/local/bin/pdsadmin:
     exists: true
+  /entrypoint.sh:
+    exists: true
