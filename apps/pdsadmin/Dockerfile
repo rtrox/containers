@@ -1,0 +1,23 @@
+FROM ubuntu:20.04
+
+ARG VERSION
+ARG REVISION
+
+ARG PDS
+
+LABEL maintainer="rtrox <rtrox@noreply.github.com"
+LABEL org.label-schema.name="pdsadmin"
+LABEL org.label-schema.description="Container containing the pdsadmin script for managing Bluesky Personal Data Server."
+LABEL org.label-schema.vendor="rtrox"
+LABEL org.label-schema.url="https://github.com/rtrox/containers"
+LABEL org.label-schema.version=$VERSION
+LABEL org.label-schema.vcs-url="https://github.com/rtrox/containers"
+LABEL org.label-schema.vcs-ref=$REVISION
+
+USER root
+
+RUN curl --silent --show-error --fail --output "/usr/local/bin/pdsadmin" \
+    https://raw.githubusercontent.com/bluesky-social/pds/refs/tags/${VERSION}/pdsadmin.sh
+RUN chmod +x /usr/local/bin/pdsadmin
+
+CMD ["/usr/local/bin/pdsadmin"]
