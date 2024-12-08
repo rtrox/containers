@@ -50,11 +50,10 @@ version = "v3.21"
 arch = "x86_64"
 package_name = "avahi"
 
+def get_latest(channel):
+    return get_latest_package_version(repo_url, version, arch, package_name)
+
 if __name__ == "__main__":
     import sys
     channel = sys.argv[1]
-    latest_version = get_latest_package_version(repo_url, version, arch, package_name)
-    if latest_version:
-        print(latest_version)
-    else:
-        print(f"Package {package_name} not found in the repository.")
+    print(get_latest(channel))
