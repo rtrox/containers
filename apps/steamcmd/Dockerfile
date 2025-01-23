@@ -1,7 +1,7 @@
 ARG VERSION
 ARG REVISION
 
-FROM ghcr.io/rtrox/ubuntu:jammy-20240808 as base
+FROM ghcr.io/rtrox/ubuntu:jammy-20240911.1 as base
 
 LABEL maintainer="rtrox <rtrox@noreply.github.com"
 LABEL org.label-schema.name="rtrox/steamcmd"
