@@ -13,8 +13,13 @@ LABEL org.label-schema.version=$VERSION
 LABEL org.label-schema.vcs-url="https://github.com/rtrox/containers"
 LABEL org.label-schema.vcs-ref=$REVISION
 
-RUN apk add --no-cache avahi augeas
+RUN apk add --no-cache \
+    avahi \
+    augeas \
+    bash \
+    catatonit
 
 ADD files/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/catatonit", "--", "/entrypoint.sh"]
