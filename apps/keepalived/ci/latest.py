@@ -2,7 +2,7 @@ import requests
 import tarfile
 import io
 
-def get_latest_package_version(repo_url, version, arch, package_name):
+def get_latest_package_version(repo_url, version, repo, arch, package_name):
     """
     Fetch the latest available version of a package from Alpine repository.
 
@@ -16,7 +16,7 @@ def get_latest_package_version(repo_url, version, arch, package_name):
         str: Latest version of the package, or None if not found.
     """
     # Construct the URL for the APKINDEX file
-    apkindex_url = f"{repo_url}/{version}/main/{arch}/APKINDEX.tar.gz"
+    apkindex_url = f"{repo_url}/{version}/{repo}/{arch}/APKINDEX.tar.gz"
 
     try:
         # Fetch the APKINDEX file
@@ -47,11 +47,12 @@ def get_latest_package_version(repo_url, version, arch, package_name):
 # Example usage
 repo_url = "https://dl-cdn.alpinelinux.org/alpine"
 version = "v3.21"
+repo = "community"
 arch = "x86_64"
 package_name = "keepalived"
 
 def get_latest(channel):
-    return get_latest_package_version(repo_url, version, arch, package_name)
+    return get_latest_package_version(repo_url, version, repo, arch, package_name)
 
 if __name__ == "__main__":
     import sys
