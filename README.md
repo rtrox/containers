@@ -42,6 +42,7 @@ Application Images are all built from the customer base images below, and will l
 Container | Channel | Image | Latest Tags
 --- | --- | --- | ---
 [avahi](https://github.com/rtrox/containers/pkgs/container/avahi) | public | ghcr.io/rtrox/avahi |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.8-r19](https://img.shields.io/badge/0.8--r19-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
+[keepalived]() | public | ghcr.io/rtrox/keepalived |
 [necesse-server](https://github.com/rtrox/containers/pkgs/container/necesse-server) | stable | ghcr.io/rtrox/necesse-server |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.24](https://img.shields.io/badge/0.24-blue?style=flat-square) ![0.24.0](https://img.shields.io/badge/0.24.0-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 [pdsadmin](https://github.com/rtrox/containers/pkgs/container/pdsadmin) | public | ghcr.io/rtrox/pdsadmin |![latest](https://img.shields.io/badge/latest-green?style=flat-square) ![v0](https://img.shields.io/badge/v0-blue?style=flat-square) ![v0.4](https://img.shields.io/badge/v0.4-blue?style=flat-square) ![v0.4.74](https://img.shields.io/badge/v0.4.74-blue?style=flat-square)
 [starbound-server](https://github.com/rtrox/containers/pkgs/container/starbound-server) | public | ghcr.io/rtrox/starbound-server |![4369387-1573210671](https://img.shields.io/badge/4369387--1573210671-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
