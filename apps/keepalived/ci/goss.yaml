@@ -2,7 +2,7 @@
 file:
   /entrypoint.sh:
     exists: true
-  /usr/bin/keepalived:
+  /usr/sbin/keepalived:
     exists: true
 
 process:
