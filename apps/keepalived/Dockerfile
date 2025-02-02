@@ -14,6 +14,7 @@ LABEL org.label-schema.vcs-url="https://github.com/rtrox/containers"
 LABEL org.label-schema.vcs-ref=$REVISION
 
 COPY files/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 RUN apk add --no-cache \
     bash \
