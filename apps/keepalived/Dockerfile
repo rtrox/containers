@@ -1,0 +1,18 @@
+FROM alpine:3.21.2
+# https://github.com/flungo-docker/avahi
+
+ARG VERSION
+ARG REVISION
+
+LABEL maintainer="rtrox <rtrox@noreply.github.com"
+LABEL org.label-schema.name="keepalived"
+LABEL org.label-schema.description="Minimal Keepalived Container"
+LABEL org.label-schema.vendor="rtrox"
+LABEL org.label-schema.url="https://github.com/rtrox/containers"
+LABEL org.label-schema.version=$VERSION
+LABEL org.label-schema.vcs-url="https://github.com/rtrox/containers"
+LABEL org.label-schema.vcs-ref=$REVISION
+
+RUN apk add --no-cache keepalived
+
+CMD ["keepalived", "--dont-fork", "--log-console", "--log-detail"]
