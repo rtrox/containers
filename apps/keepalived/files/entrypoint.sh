@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 exec \
-    /usr/bin/keepalived \
+    keepalived \
       --dont-fork \
       --log-console \
       --log-detail \
