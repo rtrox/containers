@@ -13,6 +13,11 @@ LABEL org.label-schema.version=$VERSION
 LABEL org.label-schema.vcs-url="https://github.com/rtrox/containers"
 LABEL org.label-schema.vcs-ref=$REVISION
 
-RUN apk add --no-cache keepalived
+COPY files/entrypoint.sh /entrypoint.sh
 
-CMD ["keepalived", "--dont-fork", "--log-console", "--log-detail"]
+RUN apk add --no-cache \
+    bash \
+    catatonit \
+    keepalived
+
+ENTRYPOINT ["/usr/bin/catatonit", "--", "/entrypoint.sh"]

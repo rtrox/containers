@@ -1,4 +1,10 @@
 ---
+file:
+  /entrypoint.sh:
+    exists: true
+  /usr/bin/keepalived:
+    exists: true
+
 process:
   keepalived:
     running: true
