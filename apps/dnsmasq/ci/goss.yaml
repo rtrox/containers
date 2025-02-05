@@ -1,0 +1,10 @@
+---
+file:
+  /entrypoint.sh:
+    exists: true
+  /usr/sbin/dnsmasq:
+    exists: true
+
+process:
+  dnsmasq:
+    running: true
