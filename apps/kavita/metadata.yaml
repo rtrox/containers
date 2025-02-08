@@ -1,5 +1,5 @@
 ---
-app: keepalived
+app: kavita
 base: false
 semantic_versioning: true
 channels:
