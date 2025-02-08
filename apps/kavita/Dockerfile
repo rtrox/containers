@@ -1,7 +1,7 @@
 ARG VERSION
 ARG REVISION
 
-FROM vmilazz0/kavita:$VERSION
+FROM jvmilazz0/kavita:$VERSION
 
 RUN cp -r /kavita/config /config
 COPY files/entrypoint.sh /kube_entry.sh

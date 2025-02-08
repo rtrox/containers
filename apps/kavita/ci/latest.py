@@ -14,6 +14,8 @@ def get_latest(channel):
     r = requests.get(u)
     data = json.loads(r.text)
     for tag in data['results']:
+        if tag['name'] == "latest":
+            continue
         if channel == "stable":
             if tag['name'].startswith("nightly") or tag['name'].startswith("canary"):
                 continue
