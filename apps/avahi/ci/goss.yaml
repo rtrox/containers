@@ -2,8 +2,3 @@
 file:
   /entrypoint.sh:
     exists: true
-
-process:
-  avahi-daemon:
-    running: true
-    comm: avahi-daemon
