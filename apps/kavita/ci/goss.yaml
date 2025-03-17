@@ -1,8 +1,0 @@
----
-file:
-  /entrypoint.sh:
-    exists: true
-
-process:
-  Kavita:
-    running: true
