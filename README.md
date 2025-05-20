@@ -41,7 +41,7 @@ Application Images are all built from the customer base images below, and will l
 
 Container | Channel | Image | Latest Tags
 --- | --- | --- | ---
-[avahi]() | public | ghcr.io/rtrox/avahi |
+[avahi](https://github.com/rtrox/containers/pkgs/container/avahi) | public | ghcr.io/rtrox/avahi |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.8-r19](https://img.shields.io/badge/0.8--r19-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 [dnsmasq](https://github.com/rtrox/containers/pkgs/container/dnsmasq) | public | ghcr.io/rtrox/dnsmasq |![2](https://img.shields.io/badge/2-blue?style=flat-square) ![2.90-r3](https://img.shields.io/badge/2.90--r3-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 [keepalived](https://github.com/rtrox/containers/pkgs/container/keepalived) | public | ghcr.io/rtrox/keepalived |![2](https://img.shields.io/badge/2-blue?style=flat-square) ![2.3](https://img.shields.io/badge/2.3-blue?style=flat-square) ![2.3.1-r0](https://img.shields.io/badge/2.3.1--r0-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 [necesse-server](https://github.com/rtrox/containers/pkgs/container/necesse-server) | stable | ghcr.io/rtrox/necesse-server |![0](https://img.shields.io/badge/0-blue?style=flat-square) ![0.24](https://img.shields.io/badge/0.24-blue?style=flat-square) ![0.24.0](https://img.shields.io/badge/0.24.0-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
