@@ -56,6 +56,6 @@ All Base Images are configured with a non-root user (`rtrox:rtrox`), and exposed
 
 Container | Channel | Image | Latest Tags
 --- | --- | --- | ---
-[alpine](https://github.com/rtrox/containers/pkgs/container/alpine) | 3.18 | ghcr.io/rtrox/alpine |![3](https://img.shields.io/badge/3-blue?style=flat-square) ![3.18](https://img.shields.io/badge/3.18-blue?style=flat-square) ![3.18.9](https://img.shields.io/badge/3.18.9-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
+[alpine]() | 3.18 | ghcr.io/rtrox/alpine |
 [steamcmd](https://github.com/rtrox/containers/pkgs/container/steamcmd) | stable | ghcr.io/rtrox/steamcmd |![0-20180105-4](https://img.shields.io/badge/0--20180105--4-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
 [ubuntu](https://github.com/rtrox/containers/pkgs/container/ubuntu) | jammy | ghcr.io/rtrox/ubuntu |![jammy-20250415.1](https://img.shields.io/badge/jammy--20250415.1-blue?style=flat-square) ![latest](https://img.shields.io/badge/latest-green?style=flat-square)
