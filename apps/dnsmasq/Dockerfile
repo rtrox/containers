@@ -1,7 +1,7 @@
 ARG VERSION
 ARG REVISION
 
-FROM alpine:3.23.4
+FROM alpine:3.24.0
 
 LABEL maintainer="rtrox <rtrox@noreply.github.com"
 LABEL org.label-schema.name="keepalived"
