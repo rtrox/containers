@@ -1,4 +1,4 @@
-FROM alpine:3.24.0
+FROM alpine:3.24.1
 # https://github.com/flungo-docker/avahi
 
 ARG VERSION
