@@ -1,0 +1,13 @@
+---
+app: protonmail-bridge
+base: false
+semantic_versioning: true
+channels:
+  - name: stable
+    # Proton only publishes an amd64 .deb.
+    platforms:
+      - linux/amd64
+    stable: true
+    tests:
+      enabled: true
+      type: web

@@ -1,0 +1,17 @@
+---
+file:
+  /entrypoint.sh:
+    exists: true
+  /usr/bin/protonmail-bridge:
+    exists: true
+
+process:
+  protonmail-bridge:
+    running: true
+
+# Bridge listens on loopback only; goss runs inside the container.
+port:
+  tcp:1143:
+    listening: true
+    ip:
+      - 127.0.0.1
