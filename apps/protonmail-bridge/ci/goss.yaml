@@ -5,11 +5,9 @@ file:
   /usr/bin/protonmail-bridge:
     exists: true
 
-process:
-  protonmail-bridge:
-    running: true
-
-# Bridge listens on loopback only; goss runs inside the container.
+# Bridge listens on loopback only; goss runs inside the container. A listening
+# IMAP port is a stronger signal than a process-name match (the deb's launcher
+# execs a differently named binary).
 port:
   tcp:1143:
     listening: true
