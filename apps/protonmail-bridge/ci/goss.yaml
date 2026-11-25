@@ -1,0 +1,15 @@
+---
+file:
+  /entrypoint.sh:
+    exists: true
+  /usr/bin/protonmail-bridge:
+    exists: true
+
+# Bridge listens on loopback only; goss runs inside the container. A listening
+# IMAP port is a stronger signal than a process-name match (the deb's launcher
+# execs a differently named binary).
+port:
+  tcp:1143:
+    listening: true
+    ip:
+      - 127.0.0.1
