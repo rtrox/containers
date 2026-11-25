@@ -21,8 +21,21 @@ chmod 700 "${GNUPGHOME}"
 # volume's own access control; it only satisfies Bridge's keychain requirement.
 if [ ! -d "${PASSWORD_STORE_DIR}" ]; then
     echo ">> Generating GPG key for pass (one-time)"
-    gpg --batch --pinentry-mode loopback --passphrase '' \
-        --quick-generate-key "ProtonBridge <bridge@localhost>" rsa3072 default never
+    # Needs an encryption-capable key: `pass` encrypts to it. A plain
+    # --quick-generate-key "default" usage made a sign-only key ("Unusable
+    # public key"), so spell out the capabilities in a batch spec.
+    gpg --batch --gen-key <<'EOF_GPG'
+%no-protection
+Key-Type: RSA
+Key-Length: 3072
+Key-Usage: sign,encrypt
+Name-Real: ProtonBridge
+Name-Email: bridge@localhost
+Expire-Date: 0
+%commit
+EOF_GPG
+    # Fail loudly now rather than later inside Bridge if the key still can't encrypt.
+    echo test | gpg --batch --trust-model always --encrypt -r bridge@localhost >/dev/null
     pass init "$(gpg --list-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}')"
 fi
 
