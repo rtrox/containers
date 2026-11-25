@@ -42,9 +42,13 @@ fi
 if [ "${1:-}" = "init" ]; then
     touch "${init_flag}"
     trap 'rm -f "${init_flag}"' EXIT
-    pkill -x protonmail-bridge || true
+    # Bridge is a launcher ("protonmail-bridge", 16 chars: too long for -x, which
+    # silently matches nothing) plus the real binary under /usr/lib. Match both
+    # on the full command line.
+    bridge_procs='protonmail-bridge --noninteractive|/usr/lib/protonmail/bridge/bridge'
+    pkill -f "${bridge_procs}" || true
     # Wait for the lock to be released before opening the CLI.
-    for _ in $(seq 1 20); do pgrep -x protonmail-bridge >/dev/null || break; sleep 0.5; done
+    for _ in $(seq 1 20); do pgrep -f "${bridge_procs}" >/dev/null || break; sleep 0.5; done
     protonmail-bridge --cli
     exit 0
 fi
